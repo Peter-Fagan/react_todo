@@ -1,3 +1,11 @@
+
+const HTMLWebpackPlugin = require('html-webpack-plugin');
+const HTMLWebpackPluginConfig = new HTMLWebpackPlugin({
+  template: __dirname + '/app/index.html',
+  filename: 'index.html',
+  inject: 'body'
+});
+
 module.exports = {
   entry: [
     '.app/index.js'
@@ -16,6 +24,6 @@ module.exports = {
     ]
   },
   plugins: [
-    HTMLWebpaclPluginConfig
+    HTMLWebpackPluginConfig
   ]
 };
