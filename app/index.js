@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 
 class ShowTodos extends React.Component {
@@ -11,22 +11,22 @@ class ShowTodos extends React.Component {
 
   componentWillMount() {
     window.setTimeout(function() {
-
+      this.setState({
+        loading: false
+      });
     }.bind(this), 500);
   }
 
   render() {
     if (!this.state.loading) {
-      let todosItems = this.props.map((t) => {
+      let todosItems = this.props.todos.map((t) => {
         return (
-          <li> { t } </li>
+          <li>{t}</li>
         );
       });
-      return {
-        <ul>
-          { todosItems }
-        </ul>
-      };
+      return (
+        <ul>{todosItems}</ul>
+      );
     } else {
       return (
         <p>Loading...</p>
@@ -55,7 +55,7 @@ class TodosContainer extends React.Component {
     return (
       <div>
         <h1> All Todos </h1>
-        <ShowTodos todos={todos} number{42}/>
+        <ShowTodos todos={todos}/>
       </div>
     )
   }
@@ -96,7 +96,7 @@ class ChildComponent extends React.Component {
 ChildComponent.defaultProps = {};
 ChildComponent.propTypes = {};
 
-class ParentComponent extends react.Component {
+class ParentComponent extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -119,7 +119,10 @@ class ParentComponent extends react.Component {
   render() {
     return (
       <div className="container">
-        <input type="text" value={this.state.text} onChange={this.onInputChange.bind(this)} />
+        <input
+          type="text"
+          value={this.state.text}
+          onChange={this.onInputChange.bind(this)} />
         <ChildComponent text={this.state.text}/>
       </div>
     );
@@ -132,6 +135,6 @@ ReactDOM.render(
 )
 
 ReactDOM.render(
-  <TodosContainer />
+  <TodosContainer />,
   document.getElementById('app')
 );
